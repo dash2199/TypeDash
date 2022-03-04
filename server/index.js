@@ -10,6 +10,8 @@ const server = http.Server(app);
 
 const PORT = process.env.PORT || 3001;
 
+app.use( express.static(__dirname + '/../../build'));
+
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
