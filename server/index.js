@@ -5,12 +5,10 @@ const cors = require("cors");
 const {Server} = require("socket.io");
 
 app.use(cors());
+app.use(router);
 
-const server = http.Server(app);
-
-const PORT = process.env.PORT || 3001;
-
-app.use( express.static(__dirname + '/../../build'));
+const router = require('./router');
+const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
@@ -79,7 +77,7 @@ io.on("connection", (socket) => {
     })
 })
 
-server.listen(PORT, () => {
-    console.log("SERVER RUNNING" + PORT);
+server.listen(process.env.PORT || 3001 , () => {
+    console.log("SERVER RUNNING");
 });
 
