@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
+const path = require('path');
 const http = require("http");
 const cors = require("cors");
 const {Server} = require("socket.io");
+const publicPath = path.join(__dirname, '../public');
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(router);
 
-const router = require('./router');
 const server = http.createServer(app);
+app.use(express.static(publicPath));
 
 const io = new Server(server, {
     cors: {
@@ -77,7 +79,7 @@ io.on("connection", (socket) => {
     })
 })
 
-server.listen(process.env.PORT || 3000 , '0.0.0.0' , () => {
-    console.log("SERVER RUNNING");
+server.listen(PORT, () => {
+    console.log(`SERVER RUNNING ON ${PORT}`);
 });
 
